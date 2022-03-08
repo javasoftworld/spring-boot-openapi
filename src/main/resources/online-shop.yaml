@@ -1,0 +1,120 @@
+openapi: "3.0.3"
+info:
+  title: Online shop API specification
+  description: Online **shop API** specification
+  version: "1.0.0"
+  license:
+    name: Apache 2.0
+    url: https://apache.com/licences/apache20
+  contact:
+    name: Online shop API developer team
+    email: mailto://open-shop-api@example.com
+servers:
+  - url: 'https:server1.aws.world.com'
+    description: Main development center
+tags:
+  - name: Products
+    description: Products operations
+  - name: Orders
+    description: Customers order info
+  - name: Customers
+    description: Customers operations
+paths:
+  /products:
+    description: The Products catalog
+    summary: Products catalog operations
+    get:
+      operationId: getProductsFreeQueryPage
+      summary: Search for products
+      tags:
+        - Products
+      parameters:
+        - name: free-query
+          description: free-query
+          in: query
+          schema:
+            type: string
+      responses:
+        200:
+          description: Products matching free query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+    post:
+      operationId: addNewProduct
+      description: Add a new product to catalog
+      summary: To add a new product
+      externalDocs:
+        url: https://server1.aws.world.com/docs/product#addNewProduct
+        description: How to add products
+      tags:
+        - Products
+      requestBody:
+        description: Product
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  type: string
+                  example: The design of Web APIs
+                price:
+                  type: number
+                  example: $44.99
+      responses:
+        201:
+          description: Product created.
+          headers:
+            location:
+              description: URL to created product
+              example: /products/2314
+              required: true
+        409:
+          description: Product creating conflict
+        401:
+          description: Not authorized to create a new product
+    delete:
+      operationId: removeProduct
+      description: Remove product item from catalog
+      summary: Remove product item from catalog
+      tags:
+        - Products
+      parameters:
+        - name: productId
+          required: true
+          in: path
+      responses:
+        204:
+          description: Product has been removed
+        401:
+          description: Not authorized to remove a product from catalog
+
+components:
+  schemas:
+    Product:
+      properties:
+        reference:
+          type: string
+          example: /products/3254
+        name:
+          type: string
+          example: Red demi-dry wine
+        price:
+          type: number
+          example: $15.33
+        dateAdded:
+          type: number
+          format: date
+          example: '12-12-2020'
+        definitelyOutOfstock:
+          type: boolean
+          example: 'false'
+        description:
+          type: string
+          example: Excellent drinks to get good mood.
+        supplier:
+          type: string
+          example: /suppliers/5234

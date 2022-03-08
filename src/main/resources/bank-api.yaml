@@ -1,0 +1,8 @@
+openapi: "3.0.3"
+info:
+  title: Bank API
+  description: Bank API
+  version: "1.0.0"
+servers:
+  - url: 'http://localhost:8080'
+paths: { }

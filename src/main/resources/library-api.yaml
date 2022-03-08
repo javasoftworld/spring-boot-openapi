@@ -1,0 +1,115 @@
+openapi: "3.0.3"
+info:
+  title: Library API
+  description: Library API service specification demo.
+  version: "1.0.0"
+servers:
+  - url: 'http://localhost:8080'
+    description: development stage server
+tags:
+  - name: "Library"
+    description: "Library operations"
+paths:
+  /library/books:
+    get:
+      summary: This is summary
+      tags:
+        - "Library"
+      description: This is description
+      operationId: getAllBooksLibrary
+      responses:
+        "200":
+          description: This is Okay
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+    post:
+      summary: add new Book
+      tags:
+        - "Library"
+      description: Create new book
+      operationId: addBookToCollection
+      requestBody:
+        $ref: '#/components/requestBodies/BookRequestBody'
+      responses:
+        201:
+          description: This book has been created.
+          headers:
+            location:
+              description: URL to locate a new book
+              schema:
+                type: string
+  /library/books/{bookId}:
+    parameters:
+      - $ref: '#/components/parameters/bookId'
+    get:
+      summary: Get specified book from collection
+      operationId: getSpecifiedBook
+      tags:
+        - "Library"
+      responses:
+        200:
+          description: Book found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        404:
+          description: Book not found
+    put:
+      summary: Replace book info
+      operationId: updateSpecifiedBook
+      tags:
+        - "Library"
+      responses:
+        200:
+          description: Book replaced
+        204:
+          description: No content provided
+        404:
+          description: Book not found
+      requestBody:
+        $ref: '#/components/requestBodies/BookRequestBody'
+    delete:
+      summary: Remove specified book
+      operationId: removeSpecifiedBook
+      description: Operation is used to disable book listing from catalog
+      tags:
+        - Library
+      responses:
+        204:
+          description: Book removed from catalog
+
+components:
+  schemas:
+    Book:
+      description: Book model
+      type: object
+      properties:
+        name:
+          type: string
+        bookAuthor:
+          type: string
+
+  requestBodies:
+    BookRequestBody:
+      description: Book request body
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Book'
+
+  parameters:
+    bookId:
+      description: ID for identifying a book
+      required: true
+      name: bookId
+      in: path
+      schema:
+        type: string
+
+

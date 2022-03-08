@@ -1,0 +1,42 @@
+openapi: "3.0.3"
+info:
+  title: Car Rent System
+  description: The primer OpenAPI specification for fiction car rental company.
+  version: "1.0.1.SNAPSHOT"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.txt
+  contact:
+    name: Reikon Abb
+    url: https://reikon.info
+    email: dev@reikon.info
+servers:
+  - url: 'https://main.server.org'
+    description: Production server
+
+tags:
+  - name: Cars
+    description: Car operations
+  - name: Reservations
+    description: Customers reservations stuff
+  - name: Customers
+    description: Customer operations
+  - name: Insurance
+    description: Insurance offering
+  - name: Rentals
+    description: Rental informaion
+
+paths: { }
+
+components:
+  # schemas used fo app
+  schemas: { }
+
+
+  # path and query parameters
+  parameters: { }
+
+  # DTO definitions
+  requestBodies: { }
+
+

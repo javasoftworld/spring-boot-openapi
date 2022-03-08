@@ -1,0 +1,198 @@
+openapi: 3.0.3
+info:
+  title: Reflectoring
+  description: "Tutorials on Spring Boot and Java, thoughts about the Software Craft, and relevant book reviews. Because it's just as important to understand the Why as it is to understand the How. Have fun!"
+  termsOfService: https://swagger.io/terms/
+  contact:
+    email: 2belonosov@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www/apache.org/licences/LICENSE-2.0.html
+  version: 0.0.1-SNAPSHOP
+externalDocs:
+  description: Find out more about Reflectoring
+  url: https://reflectoring.io/about/
+servers:
+  - url: 'https://reflectoring.swagger.io/'
+tags:
+  - name: user
+    description: Operations about user
+    externalDocs:
+      description: Find out more about store
+      url: https://swagger.io
+paths:
+  /api/v1/users:
+    post:
+      tags:
+        - user
+      summary: Create user
+      description: Create user functionality
+      operationId: createUser
+      requestBody:
+        description: Creation user object
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        default:
+          description: successful operation
+          content: { }
+      x-codegen-request-body-name: body
+      security:
+        - freemium_auth: [ ]
+  /api/v1/users/{userName}:
+    get:
+      tags:
+        - user
+      summary: Get user by user name
+      operationId: getUserByName
+      parameters:
+        - name: userName
+          in: path
+          description: 'The name that needs to be fetched'
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        404:
+          description: User not found
+          content: { }
+    put:
+      tags:
+        - user
+      summary: Updated user
+      description: This can only be done by the logged in user
+      operationId: updateUser
+      parameters:
+        - name: userName
+          in: path
+          description: user name that is needed to be updated
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Updated user object
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: Invalid user supplied
+          content: { }
+        404:
+          description: User not found
+          content: { }
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+        - user
+      summary: Delete user
+      description: This can only be done by the logged in user
+      operationId: deleteUser
+      parameters:
+        - name: userName
+          in: path
+          description: The name that needs th be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        201:
+          description: operation successful
+          content: { }
+        400:
+          description: Invalid username supplied
+          content: { }
+        404:
+          description: User not found
+          content: { }
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        userName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        phone:
+          type: string
+        userStatus:
+          type: integer
+          description: User Status
+          format: int32
+      example:
+        id: 54313
+        userName: Johnny
+        firstName: John
+        lastName: Doe
+        email: jdoe@example.com
+        password: password_here
+        phone: +1 555 123 45 67
+        userStatus: 3
+
+    Project:
+      title: Project
+      description: Entity for projects activity
+      type: object
+      properties:
+        name:
+          description: Project name
+          type: string
+        due-date:
+          description: Project due date
+          type: string
+          format: date
+        descriptor:
+          type: string
+
+  securitySchemes:
+    reflectoring_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://reflectoring.swagger.io/oauth//dialog
+          scopes:
+            write:users: modify users
+            read:users: read users
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
+
+    freemium_auth:
+      description: Security scheme for **freemium** API users
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://github.com/auth
+          scopes:
+            write:projects: modify projects items
+            read:projects: read projects and itd items
+
+  
