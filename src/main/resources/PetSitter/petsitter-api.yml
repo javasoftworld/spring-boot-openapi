@@ -1,0 +1,270 @@
+openapi: 3.0.3
+info:
+  title: PetSitter API
+  description: |
+    An API for **Pet sitter** management application that intent for take some care
+    for pets when whose **owner** are busy.
+    ---
+
+  version: 1.0.0
+servers:
+  - url: 'https://'
+paths:
+  /users:
+    post:
+      summary: Register User
+      responses:
+        201:
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+  /users/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: View User
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      summary: Modify User
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+    delete:
+      summary: Delete User
+      responses:
+        204:
+          description: No content
+  /jobs:
+    post:
+      summary: Created Job
+      responses:
+        201:
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
+    get:
+      summary: List All Jobs
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Job'
+  /users/{id}/jobs:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: List Jobs For User
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Job'
+  /jobs/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: View Job
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+    put:
+      summary: Modify Job
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
+  /jobs/{id}/job-applications:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: List Applications for Job
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/JobApplication'
+    post:
+      summary: Create Job Application
+      responses:
+        201:
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobApplication'
+  /job-applications/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    put:
+      summary: Modify Job Application
+      requestBody:
+        description: Update the application details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobApplication'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobApplication'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        ID:
+          type: integer
+          example: 14323765
+        email:
+          type: string
+          example: jdoe@example.com
+        password:
+          type: string
+          format: password
+          example: Vj$t3TWs2
+        full_name:
+          type: string
+          example: John Doe
+        roles:
+          type: array
+          items:
+            type: string
+    Job:
+      type: object
+      properties:
+        ID:
+          type: integer
+          example: 54365421
+        creator_user_id:
+          type: integer
+          example: 534439078
+        start_time:
+          type: string
+          format: date-time
+          example: 2021-07-21T17:32:28Z
+        end_time:
+          type: string
+          format: date-time
+          example: 2021-07-21T19:32:28Z
+        activity:
+          type: string
+          example: Walk with dog
+        dog:
+          $ref: '#/components/schemas/Dog'
+    Dog:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Izzy
+        age:
+          type: integer
+          example: 3
+        breed:
+          type: string
+          example: Noname
+        size:
+          type: string
+          example: 4 foots
+    JobApplication:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+        user_id:
+          type: integer
+        job_id:
+          type: integer
