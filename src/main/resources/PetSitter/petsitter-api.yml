@@ -60,6 +60,209 @@ paths:
       responses:
         204:
           description: No content
+  /users/{id}/job-applications:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: List applications for a user
+      responses:
+        200:
+          description: Fetched all application list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/JobApplication'
+              examples:
+                two-items:
+                  summary: Two jobs Applications
+                  value:
+                    items:
+                      - id: 123
+                        user_is: 123
+                        job_id: 123
+                        status: PENDING
+                      - id: 123
+                        user_id: 123
+                        job_id: 123
+                        status: COMPLETED
+                empty:
+                  summary: Zero Job Applications
+                  value:
+                    items: []
+                many-items:
+                  summary: A lot of Job Applications
+                  value:
+                    items:
+                      - id: 0
+                        users_id: 3271
+                        job_id: 3842
+                        status: COMPLETED
+                      - id: 1
+                        users_id: 2034
+                        job_id: 2281
+                        status: PENDING
+                      - id: 2
+                        users_id: 170
+                        job_id: 4271
+                        status: CANCELLED
+                      - id: 3
+                        users_id: 2679
+                        job_id: 4250
+                        status: PENDING
+                      - id: 4
+                        users_id: 410
+                        job_id: 3519
+                        status: CANCELLED
+                      - id: 5
+                        users_id: 2906
+                        job_id: 690
+                        status: CANCELLED
+                      - id: 6
+                        users_id: 2075
+                        job_id: 1339
+                        status: COMPLETED
+                      - id: 7
+                        users_id: 2829
+                        job_id: 2837
+                        status: PENDING
+                      - id: 8
+                        users_id: 1454
+                        job_id: 3518
+                        status: PENDING
+                      - id: 9
+                        users_id: 2182
+                        job_id: 4384
+                        status: COMPLETED
+                      - id: 10
+                        users_id: 1477
+                        job_id: 1774
+                        status: PENDING
+                      - id: 11
+                        users_id: 130
+                        job_id: 2685
+                        status: CANCELLED
+                      - id: 12
+                        users_id: 649
+                        job_id: 1091
+                        status: CANCELLED
+                      - id: 13
+                        users_id: 3828
+                        job_id: 2300
+                        status: CANCELLED
+                      - id: 14
+                        users_id: 3608
+                        job_id: 2592
+                        status: PENDING
+                      - id: 15
+                        users_id: 950
+                        job_id: 1505
+                        status: COMPLETED
+                      - id: 16
+                        users_id: 1725
+                        job_id: 3941
+                        status: COMPLETED
+                      - id: 17
+                        users_id: 2153
+                        job_id: 3728
+                        status: COMPLETED
+                      - id: 18
+                        users_id: 1001
+                        job_id: 4478
+                        status: COMPLETED
+                      - id: 19
+                        users_id: 3036
+                        job_id: 2455
+                        status: COMPLETED
+                      - id: 20
+                        users_id: 2016
+                        job_id: 2725
+                        status: PENDING
+                      - id: 21
+                        users_id: 163
+                        job_id: 1219
+                        status: CANCELLED
+                      - id: 22
+                        users_id: 3597
+                        job_id: 4716
+                        status: PENDING
+                      - id: 23
+                        users_id: 456
+                        job_id: 4963
+                        status: COMPLETED
+                      - id: 24
+                        users_id: 2366
+                        job_id: 1834
+                        status: CANCELLED
+                      - id: 25
+                        users_id: 1867
+                        job_id: 1877
+                        status: COMPLETED
+                      - id: 26
+                        users_id: 1390
+                        job_id: 2801
+                        status: COMPLETED
+                      - id: 27
+                        users_id: 194
+                        job_id: 1019
+                        status: COMPLETED
+                      - id: 28
+                        users_id: 3409
+                        job_id: 717
+                        status: PENDING
+                      - id: 29
+                        users_id: 758
+                        job_id: 4300
+                        status: PENDING
+                      - id: 30
+                        users_id: 3542
+                        job_id: 2685
+                        status: PENDING
+                      - id: 31
+                        users_id: 3488
+                        job_id: 4209
+                        status: PENDING
+                      - id: 32
+                        users_id: 689
+                        job_id: 4782
+                        status: CANCELLED
+                      - id: 33
+                        users_id: 2105
+                        job_id: 4823
+                        status: CANCELLED
+                      - id: 34
+                        users_id: 854
+                        job_id: 2238
+                        status: PENDING
+                      - id: 35
+                        users_id: 3593
+                        job_id: 2079
+                        status: COMPLETED
+                      - id: 36
+                        users_id: 817
+                        job_id: 649
+                        status: CANCELLED
+                      - id: 37
+                        users_id: 3138
+                        job_id: 1043
+                        status: CANCELLED
+                      - id: 38
+                        users_id: 3189
+                        job_id: 2849
+                        status: PENDING
+                      - id: 39
+                        users_id: 2723
+                        job_id: 701
+                        status: PENDING
+
   /jobs:
     post:
       summary: Created Job
@@ -105,24 +308,24 @@ paths:
                       activity: walk
                     - id: 234
                       creator_user_id: 345
-                        start_time: 2021-07-22T16:32:28Z
-                        end_time: 2021-07-22T17:32:28Z
-                        dog:
-                          name: Rex
-                          age: 2
-                          breed: Rottweiler
-                          size: large
-                        activity: sit
+                      start_time: 2021-07-22T16:32:28Z
+                      end_time: 2021-07-22T17:32:28Z
+                      dog:
+                        name: Rex
+                        age: 2
+                        breed: Rottweiler
+                        size: large
+                      activity: sit
                     - id: 234
-                        creator_user_id: 345
-                          start_time: 2021-09-22T12:32:28Z
-                          end_time: 2021-09-22T19:32:28Z
-                          dog:
-                            name: Blossom
-                            age: 2
-                            breed: Rottweiler
-                            size: large
-                          activity: walk
+                      creator_user_id: 345
+                      start_time: 2021-09-22T12:32:28Z
+                      end_time: 2021-09-22T19:32:28Z
+                      dog:
+                        name: Blossom
+                        age: 2
+                        breed: Rottweiler
+                        size: large
+                      activity: walk
   /users/{id}/jobs:
     parameters:
       - name: id
