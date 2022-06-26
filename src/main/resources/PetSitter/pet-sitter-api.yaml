@@ -1,0 +1,262 @@
+openapi: 3.0.3
+info:
+  title: Title
+  description: Title
+  version: 1.0.0
+servers:
+  - url: 'https'
+paths:
+  /users:
+    post:
+      summary: Create User
+      responses:
+        201:
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+  /users/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: View User
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      summary: Modify User
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+    delete:
+      summary: Delete User
+      responses:
+        204:
+          description: No Content
+
+  /users/{id}/jobs:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: List jobs for user
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    $ref: '#/components/schemas/Job'
+
+  /jobs:
+    post:
+      summary: Create Job
+      responses:
+        201:
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
+    get:
+      summary: List all jobs
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Job'
+  /jobs/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: View Job
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+    put:
+      summary: Modify Job
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
+    delete:
+      summary: Delete Job
+      responses:
+        204:
+          description: No Content
+  /jobs/{id}/job-applications:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: List Applications for Job
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/JobApplication'
+    post:
+      summary: Created Job Application
+      responses:
+        201:
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobApplication'
+
+  /job-applications/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+
+    put:
+      summary: Modify Job Application
+      requestBody:
+        description: Update the application details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobApplication'
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobApplication'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        ID:
+          type: integer
+          example: 7654321
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+        full_name:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+    Job:
+      type: object
+      properties:
+        ID:
+          type: integer
+          example: 543123234
+        creator_user_id:
+          type: string
+        start_time:
+          type: string
+          format: datetime
+        end_time:
+          type: string
+          format: datetime
+        activity:
+          type: string
+        dog:
+          $ref: '#/components/schemas/Dog'
+    Dog:
+      type: object
+      properties:
+        name:
+          type: string
+        age:
+          type: integer
+        breed:
+          type: string
+        size:
+          type: string
+    JobApplication:
+      type: object
+      properties:
+        ID:
+          type: integer
+        status:
+          type: array
+        user_id:
+          type: integer
+        job_id:
+          type: integer
