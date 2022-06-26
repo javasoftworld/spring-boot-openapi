@@ -7,12 +7,20 @@ info:
     ---
 
   version: 1.0.0
+tags:
+  - name: Users
+    description: User-related operations
+  - name: Jobs
+    description: Job-related operations
 servers:
   - url: 'https://'
 paths:
   /users:
     post:
       summary: Register User
+      operationId: registerUser
+      tags:
+        - Users
       responses:
         201:
           description: Created
@@ -34,6 +42,9 @@ paths:
           type: integer
     get:
       summary: View User
+      operationId: veiwUserWithID
+      tags:
+        - Users
       responses:
         200:
           description: Ok
@@ -43,6 +54,9 @@ paths:
                 $ref: '#/components/schemas/User'
     put:
       summary: Modify User
+      operationId: modifyUserWithID
+      tags:
+        - Users
       responses:
         200:
           description: Ok
@@ -57,6 +71,9 @@ paths:
               $ref: '#/components/schemas/User'
     delete:
       summary: Delete User
+      operationId: deleteUserWithID
+      tags:
+        - Users
       responses:
         204:
           description: No content
@@ -69,6 +86,9 @@ paths:
           type: integer
     get:
       summary: List applications for a user
+      operationId: viewJobApplicationForUser
+      tags:
+        - Users
       responses:
         200:
           description: Fetched all application list
@@ -266,6 +286,9 @@ paths:
   /jobs:
     post:
       summary: Created Job
+      operationId: createJob
+      tags:
+        - Jobs
       responses:
         201:
           description: Created
@@ -280,6 +303,9 @@ paths:
               $ref: '#/components/schemas/Job'
     get:
       summary: List All Jobs
+      operationId: listAllJobs
+      tags:
+        - Jobs
       responses:
         200:
           description: OK
@@ -335,6 +361,9 @@ paths:
           type: integer
     get:
       summary: List Jobs For User
+      operationId: listJobForUser
+      tags:
+        - Users
       responses:
         200:
           description: OK
@@ -356,6 +385,9 @@ paths:
           type: integer
     get:
       summary: View Job
+      operationId: viewJobWithID
+      tags:
+        - Jobs
       responses:
         200:
           description: OK
@@ -365,6 +397,9 @@ paths:
                 $ref: '#/components/schemas/Job'
     put:
       summary: Modify Job
+      operationId: modifyJobWithID
+      tags:
+        - Jobs
       responses:
         200:
           description: OK
@@ -379,6 +414,9 @@ paths:
               $ref: '#/components/schemas/Job'
     delete:
       summary: Delete Job
+      operationId: deleteJobWithID
+      tags:
+        - Jobs
       responses:
         204:
           description: No Content
@@ -391,6 +429,9 @@ paths:
           type: integer
     get:
       summary: List Applications for Job
+      operationId: viewApplicationsForJob
+      tags:
+        - Jobs
       responses:
         200:
           description: OK
@@ -405,6 +446,9 @@ paths:
                       $ref: '#/components/schemas/JobApplication'
     post:
       summary: Create Job Application
+      operationId: createJobApplication
+      tags:
+        - Jobs
       responses:
         201:
           description: Created
@@ -426,6 +470,9 @@ paths:
           type: integer
     put:
       summary: Modify Job Application
+      operationId: modifyJobApplicationWithID
+      tags:
+        - Jobs
       requestBody:
         description: Update the application details
         content:
