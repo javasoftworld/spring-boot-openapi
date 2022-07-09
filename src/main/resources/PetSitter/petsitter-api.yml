@@ -21,6 +21,7 @@ paths:
       operationId: registerUser
       tags:
         - Users
+      security: []
       responses:
         201:
           description: Created
@@ -486,7 +487,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JobApplication'
-
+  /sessions:
+    post:
+      tags:
+        - Users
+      summary: Start Session (Login)
+      operationId: startSession
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+      security:
+        - {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: johnDoe@example.com
+                password:
+                  type: string
+                  format: password
+                  example: Vds4#wK87
+security:
+  - SessionToken: []
 components:
   schemas:
     User:
@@ -557,3 +588,16 @@ components:
           type: integer
         job_id:
           type: integer
+    Session:
+      type: object
+      properties:
+        user_id:
+          type: string
+        auth_header:
+          type: string
+
+  securitySchemes:
+    SessionToken:
+      type: apiKey
+      in: header
+      name: Authorization
