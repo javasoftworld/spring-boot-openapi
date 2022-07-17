@@ -70,21 +70,24 @@
             <plugin>
                 <groupId>io.swagger.codegen.v3</groupId>
                 <artifactId>swagger-codegen-maven-plugin</artifactId>
-                <version>3.0.32</version>
+                <version>3.0.34</version>
                 <executions>
                     <execution>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/library-api.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/src/main/resources/petsitter/petsitter-api.yml</inputSpec>
                             <language>spring</language>
+                            <generatorName>spring</generatorName>
                             <output>target/generated</output>
                             <generateSupportingFiles>false</generateSupportingFiles>
                             <apiPackage>com.example.app.api</apiPackage>
                             <modelPackage>com.example.app.model</modelPackage>
                             <configOptions>
                                 <interfaceOnly>true</interfaceOnly>
+                                <dateLibrary>java8</dateLibrary>
+                                <delegatePattern>true</delegatePattern>
                             </configOptions>
                         </configuration>
                     </execution>
