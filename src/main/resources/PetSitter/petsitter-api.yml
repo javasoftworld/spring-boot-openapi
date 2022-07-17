@@ -560,23 +560,51 @@ components:
         activity:
           type: string
           example: Walk with dog
-        dog:
-          $ref: '#/components/schemas/Dog'
+        pets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pet'
+    Pet:
+      allOf:
+        - type: object
+          properties:
+            name:
+              type: string
+              example: Jake
+            age:
+              type: string
+              example: 3
+        - oneOf:
+          - $ref: '#/components/schemas/Cat'
+          - $ref: '#/components/schemas/Dog'
+          discriminator:
+            propertyName: species
+            mapping:
+              Cat: '#/components/schemas/Cat'
+              Dog: '#/components/schemas/Dog'
+    Cat:
+      type: object
+      properties:
+        species:
+          type: string
+        breed:
+          type: string
+          example: Siberian Cat Breed
+      required:
+        - species
     Dog:
       type: object
       properties:
-        name:
+        species:
           type: string
-          example: Izzy
-        age:
-          type: integer
-          example: 3
         breed:
           type: string
           example: Noname
         size:
           type: string
           example: 4 foots
+      required:
+        - species
     JobApplication:
       type: object
       properties:
