@@ -302,6 +302,36 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Job'
+            examples:
+              single-pet-item:
+                summary: Only one pet job
+                value:
+                  creator_user_id: 42375623
+                  start_time: 2021-07-21T17:32:28Z
+                  end_time: 2021-07-21T17:32:28Z
+                  activity: walk
+                  pets:
+                    - name: Fluffy
+                      species: Dog
+                      breed: East German Dog
+                      size: 32 inch
+                      age: 2
+              two-cats-item:
+                summary: Two pet job
+                value:
+                  creator_user_id: 42375623
+                  start_time: 2021-07-21T17:32:28Z
+                  end_time: 2021-07-21T17:32:28Z
+                  activity: sit
+                  pets:
+                    - name: Jessie
+                      species: Cat
+                      breed: Siam cat
+                      age: 1
+                    - name: Jordy
+                      species: Cat
+                      breed: Siberian cat
+                      age: 3
     get:
       summary: List All Jobs
       operationId: listAllJobs
@@ -559,7 +589,7 @@ components:
           example: 2021-07-21T19:32:28Z
         activity:
           type: string
-          example: Walk with dog
+          example: Walk
         pets:
           type: array
           items:
@@ -587,6 +617,7 @@ components:
       properties:
         species:
           type: string
+          example: Cat
         breed:
           type: string
           example: Siberian Cat Breed
@@ -597,6 +628,7 @@ components:
       properties:
         species:
           type: string
+          example: Dog
         breed:
           type: string
           example: Noname
