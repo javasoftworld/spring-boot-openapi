@@ -333,9 +333,17 @@ paths:
                       breed: Siberian cat
                       age: 3
     get:
-      summary: List All Jobs
+      summary: List/Search Available Jobs
       operationId: listAllJobs
       parameters:
+        - name: sort
+          in: query
+          description: |
+            Indicate the sorting key and direction for the results.
+            Use the field name, suffixed with :asc for ascending and :desc for descending order.
+            Valid fields are: start_time, end_time, activity
+          schema:
+            type: string
         - name: start_time_before
           in: query
           description: Search jobs starting before this date and time
