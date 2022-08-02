@@ -626,6 +626,45 @@ security:
   - SessionToken: []
 components:
   schemas:
+    OASError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+                description: |
+                  For input validation errors, identifies where in the JSON request body the error ocurred.
+              message:
+                type: string
+                description: Human-readable error message.
+              errorCode:
+                type: string
+                description: Code indications error type.
+    Problem:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI indicating error page.
+        title:
+          type: string
+          description: Human-readable error title.
+        status:
+          type: integer
+          description: HTTP status code.
+        detail:
+          type: string
+          description: Human-readable error details.
+        instance:
+          type: string
+          description: URI indicating error instance.
     User:
       type: object
       properties:
