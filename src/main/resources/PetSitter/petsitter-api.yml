@@ -898,26 +898,43 @@ components:
       properties:
         ID:
           type: integer
+          readOnly: true
           example: 14323765
         email:
           type: string
+          format: email
           example: jdoe@example.com
         password:
           type: string
           format: password
+          minLength: 8
+          writeOnly: true
           example: Vj$t3TWs2
         full_name:
           type: string
+          minLength: 2
+          maxLength: 50
           example: John Doe
         roles:
           type: array
+          minItems: 1
+          maxItems: 3
           items:
             type: string
+            enum:
+              - PetOwner
+              - PetSitter
+              - Admin
+      required:
+        - email
+        - full_name
+        - roles
     Job:
       type: object
       properties:
         ID:
           type: integer
+          readOnly: true
           example: 54365421
         creator_user_id:
           type: integer
@@ -932,11 +949,21 @@ components:
           example: 2021-07-21T19:32:28Z
         activity:
           type: string
+          minLength: 5
+          maxLength: 500
           example: Walk
         pets:
           type: array
+          minItems: 1
+          maxItems: 10
           items:
             $ref: '#/components/schemas/Pet'
+      required:
+        - ID
+        - creator_user_id
+        - start_time
+        - end_time
+        - pets
     Pet:
       allOf:
         - type: object
@@ -944,9 +971,13 @@ components:
             name:
               type: string
               example: Jake
+              minLength: 2
+              maxLength: 20
             age:
               type: string
               example: 3
+              minimum: 1
+              maximum: 100
         - oneOf:
           - $ref: '#/components/schemas/Cat'
           - $ref: '#/components/schemas/Dog'
@@ -985,12 +1016,26 @@ components:
       properties:
         id:
           type: integer
+          readOnly: true
         status:
           type: string
+          default: applying
+          enum:
+            - applying
+            - approved
+            - rejected
+            - canceled
         user_id:
           type: integer
+          readOnly: true
         job_id:
           type: integer
+          readOnly: true
+      required:
+        - id
+        - status
+        - user_id
+        - job_id
     Session:
       type: object
       properties:
