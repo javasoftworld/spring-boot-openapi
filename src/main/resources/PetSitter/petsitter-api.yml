@@ -693,6 +693,20 @@ paths:
     get:
       summary: List Applications for Job
       operationId: viewApplicationsForJob
+      parameters:
+        - name: limit
+          in: query
+          description: The maximum number of results to return.
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+        - name: cursor
+          in: query
+          description: |
+            Use the cursor from the response to access more results.
+          schema:
+            type: string
       tags:
         - Jobs
       responses:
