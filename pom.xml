@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.2</version>
+        <version>2.7.20</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
@@ -54,6 +54,11 @@
             <artifactId>validation-api</artifactId>
             <version>2.0.1.Final</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -79,12 +84,12 @@
                         <configuration>
                             <inputSpec>${project.basedir}/src/main/resources/petsitter/petsitter-api.yml</inputSpec>
                             <language>spring</language>
-                            <generatorName>spring</generatorName>
                             <output>target/generated</output>
                             <generateSupportingFiles>false</generateSupportingFiles>
                             <apiPackage>com.example.app.api</apiPackage>
                             <modelPackage>com.example.app.model</modelPackage>
                             <configOptions>
+                                <generatorName>spring</generatorName>
                                 <interfaceOnly>true</interfaceOnly>
                                 <dateLibrary>java8</dateLibrary>
                                 <delegatePattern>true</delegatePattern>
